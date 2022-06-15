@@ -108,12 +108,17 @@ export const createClientsForm = () => {
         e.preventDefault()
 
         const contactsItems = document.getElementsByClassName('contact')
-        console.log(contactsItems.length)
+
         if (contactsItems.length < 9) {
             const contactItem = createContactItem()
 
             contactsBlock.style.backgroundColor = 'var(--color-athens-gray)'
             contactsBlock.prepend(contactItem.contact)
+            if (contactsItems.length >= 5) {
+                document.querySelector('.modal__content').style.top = '60%'
+            } else {
+                document.querySelector('.modal__content').style.top = '50%'
+            }
         } else {
             const contactItem = createContactItem()
             contactsBlock.prepend(contactItem.contact)

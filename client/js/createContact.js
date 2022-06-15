@@ -56,6 +56,36 @@ export const createContactItem = () => {
 
     contactList.append(contactPhone, contactEmail, contactVk, contactFb, contactOther)
 
+    contactDelete.addEventListener('click', (e) => {
+        e.preventDefault()
+
+        contact.remove()
+
+        document.querySelector('.modal__btn-contact').classList.add('modal__btn-contact--active')
+    })
+
+    contactName.addEventListener('click', (e) => {
+        e.preventDefault()
+
+        contactList.classList.toggle('contact__list--active')
+        contactName.classList.toggle('contact__list--active')
+    })
+
+    const setType = (type) => {
+        type.addEventListener('click', () => {
+            contactName.textContent = type.textContent
+
+            contactList.classList.remove('contact__list--active')
+            contactName.classList.remove('contact__list--active')
+        })
+    }
+
+    const typesArray = [contactEmail, contactFb, contactVk, contactPhone, contactOther]
+
+    for (const type of typesArray) {
+        setType(type)
+    }
+
     return {
         contact, 
         contactName,

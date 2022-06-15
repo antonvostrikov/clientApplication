@@ -1,3 +1,4 @@
+import { sendClientData } from "./clientsAPI.js"
 import { createClientsForm } from "./createModalForm.js"
 
 export const addClientModal = () => {
@@ -15,11 +16,21 @@ export const addClientModal = () => {
 
     modal.append(modalContent)
 
-    createForm.form.addEventListener('submit', (e) => {
+    createForm.form.addEventListener('submit', async (e) => {
         e.preventDefault()
 
+        const contactTypes = document.querySelectorAll('.contact__name')
+        const contactValues = document.querySelectorAll('.contact__input')
+
         let contacts = [],
-              clientObj = {}
+        clientObj = {}
+
+        for (let i = 0; i < contactTypes.length; i++) {
+            contacts.push({
+                type: contactTypes[i].innerHTML,
+                value: contactValues[i].value
+            })
+        }
 
         clientObj.name = createForm.inputName.value
         clientObj.surname = createForm.inputSurname.value
@@ -27,6 +38,8 @@ export const addClientModal = () => {
         clientObj.contacts = contacts
 
         console.log(clientObj)
+
+        await sendClientData(clientObj, 'POST')
     })
 
     createForm.modalClose.addEventListener('click', () => {

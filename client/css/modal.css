@@ -116,6 +116,13 @@
     color: var(--color-emerald);
 }
 
+.modal__id {
+    display: inline-block;
+    margin: 0 0 0 10px;
+    font-weight: 400;
+    font-size: 12px;
+    color: var(--color-silver-chalice)
+}
 
 .modal__btn-contact.modal__btn-contact--active {
     display: flex;
