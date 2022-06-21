@@ -1,5 +1,6 @@
 import { sendClientData } from "./clientsAPI.js"
 import { createClientsForm } from "./createModalForm.js"
+import { validateClientForm } from "./validateForm.js"
 
 export const addClientModal = () => {
     const createForm = createClientsForm()
@@ -18,6 +19,10 @@ export const addClientModal = () => {
 
     createForm.form.addEventListener('submit', async (e) => {
         e.preventDefault()
+
+        if (!validateClientForm()) {
+            return 
+        }
 
         const contactTypes = document.querySelectorAll('.contact__name')
         const contactValues = document.querySelectorAll('.contact__input')

@@ -1,4 +1,5 @@
 import { addClientModal } from "./addClient.js"
+import { createPreloader } from "./preloader.js"
 import { svgAddUser } from "./svg.js"
 
 export const createClientsSection = () => {
@@ -97,6 +98,8 @@ export const createClientsSection = () => {
     tableWrapper.append(clientsTable)
 
     clientsTable.append(sortingDisplay, tbody)
+
+    tbody.append(createPreloader())
 
     addUserBtn.append(addUserBtnSvg)
 

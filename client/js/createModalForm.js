@@ -23,6 +23,14 @@ export const createClientsForm = () => {
     const formFloatingSurname = document.createElement('div')
     const formFloatingLastName = document.createElement('div')
 
+    const errorBlock = document.createElement('p')
+    const unacceptableLetter = document.createElement('span')
+    const writeName = document.createElement('span')
+    const writeSurname = document.createElement('span')
+    const writeLastName = document.createElement('span')
+    const requiredValue = document.createElement('span')
+    const requiredContacts = document.createElement('span')
+
     modalTitle.classList.add('modal__title')
     modalTitle.textContent = 'Новый клиент'
 
@@ -37,6 +45,14 @@ export const createClientsForm = () => {
     formFloatingLastName.classList.add('form-floating')
 
     /* attributes */
+
+    errorBlock.classList.add('modal__error')
+    unacceptableLetter.id = 'unacceptableLetter'
+    writeName.id = 'writeName'
+    writeSurname.id = 'writeSurname'
+    writeLastName.id = 'writeLastName'
+    requiredValue.id = 'requiredValue'
+    requiredContacts.id = 'requiredContacts'
 
     inputName.classList.add('modal__input')
     inputName.id = 'floatingName'
@@ -104,6 +120,8 @@ export const createClientsForm = () => {
 
     addContactBtn.append(contactBtnSvgDefault, contactBtnSvgHover)
 
+    errorBlock.append(writeName, writeSurname, writeLastName, requiredValue, unacceptableLetter, requiredContacts)
+
     addContactBtn.addEventListener('click', (e) => {
         e.preventDefault()
 
@@ -131,6 +149,7 @@ export const createClientsForm = () => {
         formFloatingSurname,
         formFloatingLastName,
         contactsBlock,
+        errorBlock,
         saveBtn,
         cancelBtn
     )
