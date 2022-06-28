@@ -2,6 +2,7 @@ import { sendClientData } from "./clientsApi.js"
 import { createContactItem } from "./createContact.js"
 import { deleteClientModal } from "./createDeleteModal.js"
 import { createClientsForm } from "./createModalForm.js"
+import { createClientItem } from "./createClientItem.js"
 
 export const editClientModal = (data) => {
     const editModal = document.createElement('div')
@@ -60,7 +61,7 @@ export const editClientModal = (data) => {
         }
     })
 
-    createForm.form.addEventListener('submit', (e) => {
+    createForm.form.addEventListener('submit', async (e) => {
         e.preventDefault()
 
         const contactTypes = document.querySelectorAll('.contact__name')
@@ -81,7 +82,10 @@ export const editClientModal = (data) => {
         client.lastName = createForm.inputLastName.value
         client.contacts = contacts
 
-        sendClientData(client, 'PATCH', data.id)
+        const editedData = await sendClientData(client, 'PATCH', data.id)
+        document.getElementById(editedData.id).remove()
+        document.querySelector('.clients__tbody').append(createClientItem(editedData))
+        document.querySelector('.modal-edit').remove()
     })
 
     createForm.modalTitle.append(titleId)

@@ -1,6 +1,7 @@
 import { sendClientData } from "./clientsAPI.js"
 import { createClientsForm } from "./createModalForm.js"
 import { validateClientForm } from "./validateForm.js"
+import { createClientItem } from "./createClientItem.js"
 
 export const addClientModal = () => {
     const createForm = createClientsForm()
@@ -44,7 +45,10 @@ export const addClientModal = () => {
 
         console.log(clientObj)
 
-        await sendClientData(clientObj, 'POST')
+        const data = await sendClientData(clientObj, 'POST')
+        document.querySelector('.clients__tbody').append(createClientItem(data))
+
+        document.querySelector('.modal').remove()
     })
 
     createForm.modalClose.addEventListener('click', () => {

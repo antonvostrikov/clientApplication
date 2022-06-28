@@ -4,6 +4,7 @@ import { createContactItemByType, formatDate, formatTime } from "./utils.js"
 
 export const createClientItem = (data) => {
     const clientTr = document.createElement('tr')
+    const clientIdTd = document.createElement('td')
     const clientId = document.createElement('span')
     const clientFullName = document.createElement('td')
     const clientName = document.createElement('span')
@@ -31,6 +32,7 @@ export const createClientItem = (data) => {
             deleteClient.deleteModalDelete.addEventListener('click', () => {
                 deleteClientItem(data.id)
                 document.getElementById(data.id).remove()
+                deleteClient.deleteModal.remove()
             })
         })
     }
@@ -47,11 +49,11 @@ export const createClientItem = (data) => {
     clientTr.classList.add('clients__item')
     clientTr.id = data.id
 
-    clientId.classList.add('client__id')
+    clientIdTd.classList.add('client__id')
 
     clientFullName.classList.add('clients__full-name')
 
-    clientId.textContent = data.id.substr(0, 6)
+    clientId.textContent = Math.floor(Math.random() * 15)
 
     clientName.textContent = data.name
     clientName.classList.add('clients__name')
@@ -88,11 +90,12 @@ export const createClientItem = (data) => {
     clientDelete.textContent = 'Удалить'
     clientDelete.classList.add('clients__delete', 'btn-reset')
 
+    clientIdTd.append(clientId)
     clientFullName.append(clientSurname, clientName, clientLastName)
     clientCreated.append(createDate, createTime)
     clientChanged.append(changedDate, changedTime)
     clientsActions.append(clientEdit, clientDelete)
-    clientTr.append(clientId, clientFullName, clientCreated, clientChanged, clientContacts, clientsActions)
+    clientTr.append(clientIdTd, clientFullName, clientCreated, clientChanged, clientContacts, clientsActions)
 
     return clientTr
 }

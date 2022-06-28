@@ -1,0 +1,62 @@
+export const sortTable = () => {
+    const table = document.querySelector('.clients__table')
+    const headers = table.querySelectorAll('th')
+    const tbody = table.querySelector('tbody')
+
+    const directions = Array.from(headers).map(() => '')
+
+    const tranform = (type, content) => {
+        switch (type) {
+            case 'id': 
+                return parseFloat(content)
+            case 'create':
+            case 'update':
+                return content.split('.').reverse().join('-')  
+            case 'text':
+                default:
+                    return content   
+        }
+    }
+
+    const sortColumn = (index) => {
+        const type =  headers[index].getAttribute('data-type')
+        const rows = tbody.querySelectorAll('tr')
+        const direction = directions[index] || 'sortUp'
+        const multiply = direction === 'sortUp' ? 1 : -1
+        const newRows = Array.from(rows)
+
+        newRows.sort((row1, row2) => {
+            const cellA = row1.querySelectorAll('td')[index].textContent
+            const cellB = row2.querySelectorAll('td')[index].textContent
+
+            const a = tranform(type, cellA)
+            const b = tranform(type, cellB)
+            console.log(a, b);
+
+            switch (true) {
+                case a > b: 
+                    return 1 * multiply
+                case a < b:
+                    return -1 * multiply
+                case a === b:
+                    return 0        
+            }
+        })
+
+        Array.prototype.forEach.call(rows, (row) => {
+            tbody.removeChild(row)
+        })
+
+        directions[index] = direction === 'sortUp' ? 'sortDown' : 'sortUp'
+
+        newRows.forEach(newRow => {
+            tbody.append(newRow)
+        })
+    }
+
+    Array.prototype.forEach.call(headers, (header, index) => {
+        header.addEventListener('click', () => {
+            sortColumn(index)
+        })
+    })
+}
